@@ -1,12 +1,16 @@
 package com.crmapp.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +35,9 @@ public class User {
 
     @Column(name = "address", length = 150, nullable = false)
     private String address;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
 
     // constructors
     public User() {
@@ -95,4 +102,7 @@ public class User {
         this.address = address;
     }
 
+    // public List<Post> getPosts() {
+    // return posts;
+    // }
 }
